@@ -56,8 +56,9 @@ export const convertToPdf = async (
   return new Promise((resolve, reject) => {
     const writeStream = createWriteStream(output);
     htmlToPdf(html, {
-      footerFontSize: 4,
-      footerLeft: `This PDF was generated on ${new Date().toDateString()} using https://github.com/modiimedia/susco`,
+      printMediaType: true,
+      footerFontSize: 8,
+      footerLeft: `This PDF was generated on ${new Date()} using https://github.com/modiimedia/susco`,
     }).pipe(writeStream);
     writeStream.on("finish", () => resolve());
     writeStream.on("error", (err) => reject(err));

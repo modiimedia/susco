@@ -1,5 +1,5 @@
 // run "npm install"
-// run "npx ts-node example/example"
+// run "npx ts-node example/example-ts"
 
 import { generatePdf } from "../src/main";
 
