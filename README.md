@@ -1,6 +1,8 @@
-# SUSCO - Convert Text Files to PDF
+# SUSCO - Generate a PDF from Source Code
 
 A NodeJS tool made to please the morons at the US Copyright Office. It that will take every text file in a directory and output them into a single PDF. Images and other binary file extensions will be ignored.
+
+See `/example` to see an example PDF generated from this repo using an example script.
 
 ## Why SUSCO?
 
@@ -36,10 +38,11 @@ const config = defineConfig();
 generatePdf({
   heading: "Some title",
   description: "Some description",
-  dir: "<directory-of-source-code>",
-  output: "<output-file>",
+  // accepts an array of glob patterns
+  include: ["src/**/*", "scripts/**/*"],
   // accepts an array of glob patterns
   ignore: ["node_modules", "dist", "some-other-lib/**/*.ts"],
+  output: "<output-file>",
   disableLogs: false, // false by default
 });
 ```

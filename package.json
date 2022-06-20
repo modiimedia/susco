@@ -1,7 +1,7 @@
 {
   "name": "susco",
   "version": "0.1.0",
-  "description": "Convert a directory of text files to a PDF",
+  "description": "Automatically generate a PDF from source code",
   "main": "dist/main.js",
   "files": [
     "dist/**/*"
@@ -10,6 +10,7 @@
     "pdf",
     "copyright"
   ],
+  "repository": "https://github.com/modiimedia/susco",
   "scripts": {
     "prepare": "npm run build",
     "build": "npm run cleanDist && tsc && npm run copyAssets",
@@ -19,6 +20,7 @@
   "author": "Joshua Sosso (joshmossas)",
   "license": "MIT",
   "dependencies": {
+    "cli-progress": "^3.11.1",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
     "istextorbinary": "^6.0.0",
@@ -26,8 +28,10 @@
     "wkhtmltopdf": "^0.4.0"
   },
   "devDependencies": {
+    "@types/cli-progress": "^3.11.0",
     "@types/fs-extra": "^9.0.13",
     "@types/wkhtmltopdf": "^0.3.4",
+    "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
   }
 }

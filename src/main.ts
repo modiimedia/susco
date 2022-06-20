@@ -1,6 +1,7 @@
 import { ensureDir, remove } from "fs-extra";
 import glob from "fast-glob";
 import { isText } from "istextorbinary";
+import CliProgress from "cli-progress";
 import { convertToHtml, convertToPdf } from "./files";
 import Logger from "./logger";
 
@@ -29,16 +30,23 @@ export const defineConfig = (config: Config) => config;
 
 export const generatePdf = async (config: Config) => {
   const logger = new Logger(!config.disableLogs);
+  const progressBar = new CliProgress.SingleBar(
+    {},
+    CliProgress.Presets.shades_classic
+  );
   await ensureDir(TEMP_DIR);
   const files = await getFilePaths(config.include, config.ignore);
-  logger.log(`converting ${files.length} files to PDF`);
+  logger.log(`\nprocessing ${files.length} files`);
+  progressBar.start(files.length, 0);
   const htmlBlocks: string[] = [];
-  for (const file of files) {
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
     const html = await convertToHtml(file);
     htmlBlocks.push(html);
-    logger.log(`converted ${file}`);
+    progressBar.update(i + 1);
   }
-  logger.log(`merging PDFs`);
+  progressBar.stop();
+  logger.log(`\nmerging files into PDF...`);
   await convertToPdf(
     config.heading,
     config.description || "",
@@ -47,5 +55,5 @@ export const generatePdf = async (config: Config) => {
     config.output
   );
   await remove(TEMP_DIR);
-  logger.log("finished!");
+  logger.log(`${config.output} created`);
 };
