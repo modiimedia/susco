@@ -144,8 +144,6 @@ export const convertToPdf = async (
     const writeStream = createWriteStream(output);
     htmlToPdf(html, {
       footerFontSize: 8,
-      footerSpacing: 8,
-      runScript: [],
       footerLeft: `This PDF was generated on ${new Date()} using https://github.com/modiimedia/susco`,
     }).pipe(writeStream);
     writeStream.on("finish", () => resolve());
