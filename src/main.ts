@@ -9,10 +9,8 @@ const TEMP_DIR = ".stupid-usco";
 const removeLeadingAndTrailingSlashes = (string: string): string =>
   string.trim().replace(/^\/+|\/+$/g, "");
 
-const getFilePaths = async (directory: string, ignore: string[]) => {
-  const formattedDir = removeLeadingAndTrailingSlashes(directory);
-  console.log(formattedDir);
-  const files = await glob(`${formattedDir}/**/*`, {
+const getFilePaths = async (includes: string[], ignore: string[]) => {
+  const files = await glob(includes, {
     ignore,
   });
   return files.filter((file) => isText(file));
@@ -21,7 +19,7 @@ const getFilePaths = async (directory: string, ignore: string[]) => {
 export interface Config {
   heading: string;
   description?: string;
-  dir: string;
+  include: string[];
   ignore: string[];
   output: string;
   disableLogs?: boolean;
@@ -32,7 +30,7 @@ export const defineConfig = (config: Config) => config;
 export const generatePdf = async (config: Config) => {
   const logger = new Logger(!config.disableLogs);
   await ensureDir(TEMP_DIR);
-  const files = await getFilePaths(config.dir, config.ignore);
+  const files = await getFilePaths(config.include, config.ignore);
   logger.log(`converting ${files.length} files to PDF`);
   const htmlBlocks: string[] = [];
   for (const file of files) {
