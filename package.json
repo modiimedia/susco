@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "main": "dist/main.js",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run cleanDist && tsc && npm run copyAssets",
