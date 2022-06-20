@@ -1,3 +1,3 @@
-import { copyFile } from "fs-extra";
+import { copy } from "fs-extra";
 
-copyFile("src/template.html", "dist/template.html");
+copy("src/assets", "dist/assets");

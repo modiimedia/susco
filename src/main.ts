@@ -1,11 +1,8 @@
-import { ensureDir, remove } from "fs-extra";
 import glob from "fast-glob";
 import { isText } from "istextorbinary";
 import CliProgress from "cli-progress";
 import { convertToHtml, convertToPdf } from "./files";
 import Logger from "./logger";
-
-const TEMP_DIR = ".stupid-usco";
 
 const removeLeadingAndTrailingSlashes = (string: string): string =>
   string.trim().replace(/^\/+|\/+$/g, "");
@@ -34,7 +31,6 @@ export const generatePdf = async (config: Config) => {
     {},
     CliProgress.Presets.shades_classic
   );
-  await ensureDir(TEMP_DIR);
   const files = await getFilePaths(config.include, config.ignore);
   logger.log(`\nprocessing ${files.length} files`);
   progressBar.start(files.length, 0);
@@ -54,6 +50,5 @@ export const generatePdf = async (config: Config) => {
     htmlBlocks,
     config.output
   );
-  await remove(TEMP_DIR);
   logger.log(`${config.output} created`);
 };
