@@ -1,13 +1,16 @@
 {
   "name": "susco",
   "version": "0.0.1",
-  "description": "",
+  "description": "Convert a directory of text files to a PDF",
   "main": "dist/main.js",
   "files": [
     "dist/**/*"
   ],
+  "keywords": [
+    "pdf",
+    "copyright"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run cleanDist && tsc && npm run copyAssets",
     "cleanDist": "ts-node scripts/cleanDir --project tsconfig.build.json",
     "copyAssets": "ts-node scripts/copyAssets --project tsconfig.build.json"

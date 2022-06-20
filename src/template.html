@@ -6,21 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF Template Base</title>
     <style>
+      h1 {
+        font-size: 30px;
+        font-weight: bold;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      code {
+        font-size: 10px;
+      }
+      body {
+        font-size: 12px;
+      }
       code {
         padding: 20px;
         border-radius: 4px;
         background: #f3f3f3;
         display: block;
       }
+      .code-section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #a1a1a1;
+      }
     </style>
   </head>
   <body>
-    <h1>{{heading}}</h1>
-    <div>
-      <pre>
-        <code>{{body}}</code>
-    </pre
-      >
+    <div class="code-section" style="padding-top: 0px">
+      <h1>{{heading}}</h1>
+      <div>{{description_content}}</div>
     </div>
+    <div class="code-section">
+      <h2>Files Included:</h2>
+      <div>{{listoffiles}}</div>
+    </div>
+    <div>{{body}}</div>
   </body>
 </html>

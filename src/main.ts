@@ -1,9 +1,8 @@
 import { ensureDir, remove } from "fs-extra";
 import glob from "fast-glob";
 import { isText } from "istextorbinary";
-import FileConverter from "./fileConverter";
+import { convertToHtml, convertToPdf } from "./files";
 import Logger from "./logger";
-import path from "path";
 
 const TEMP_DIR = ".stupid-usco";
 
@@ -20,6 +19,8 @@ const getFilePaths = async (directory: string, ignore: string[]) => {
 };
 
 export interface Config {
+  heading: string;
+  description?: string;
   dir: string;
   ignore: string[];
   output: string;
@@ -32,14 +33,21 @@ export const generatePdf = async (config: Config) => {
   const logger = new Logger(!config.disableLogs);
   await ensureDir(TEMP_DIR);
   const files = await getFilePaths(config.dir, config.ignore);
-  const manager = new FileConverter();
   logger.log(`converting ${files.length} files to PDF`);
+  const htmlBlocks: string[] = [];
   for (const file of files) {
-    await manager.convertToPdf(file);
+    const html = await convertToHtml(file);
+    htmlBlocks.push(html);
     logger.log(`converted ${file}`);
   }
   logger.log(`merging PDFs`);
-  await manager.mergePdfs(config.output);
+  await convertToPdf(
+    config.heading,
+    config.description || "",
+    files,
+    htmlBlocks,
+    config.output
+  );
   await remove(TEMP_DIR);
   logger.log("finished!");
 };
