@@ -1,6 +1,6 @@
 {
   "name": "susco",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Convert a directory of text files to a PDF",
   "main": "dist/main.js",
   "files": [
