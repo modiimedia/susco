@@ -1,6 +1,6 @@
 {
   "name": "susco",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Automatically generate a PDF from source code",
   "main": "dist/main.js",
   "files": [
