@@ -1,5 +1,6 @@
 import { createWriteStream, readFile } from "fs-extra";
 import path from "path";
+import { format } from "date-fns";
 import htmlToPdf from "wkhtmltopdf";
 import Prism from "prismjs";
 const loadLanguages = require("prismjs/components/");
@@ -142,9 +143,18 @@ export const convertToPdf = async (
   );
   return new Promise((resolve, reject) => {
     const writeStream = createWriteStream(output);
+    const now = new Date();
     htmlToPdf(html, {
+      pageSize: "Letter",
       footerFontSize: 8,
-      footerLeft: `This PDF was generated on ${new Date()} using https://github.com/modiimedia/susco`,
+      footerLeft: `This PDF was generated on ${format(
+        now,
+        "MMM dd yyyy"
+      )} at ${format(
+        now,
+        "hh:mm a O"
+      )} using https://github.com/modiimedia/susco`,
+      footerRight: `page [page] of [topage]`,
     }).pipe(writeStream);
     writeStream.on("finish", () => resolve());
     writeStream.on("error", (err) => reject(err));

@@ -22,11 +22,12 @@
   "license": "MIT",
   "dependencies": {
     "cli-progress": "^3.11.2",
+    "date-fns": "^2.29.3",
     "fast-glob": "^3.2.12",
     "fs-extra": "^10.1.0",
     "get-installed-path": "^4.0.8",
     "istextorbinary": "^6.0.0",
-    "pdf-merger-js": "^3.4.0",
+    "pdf-merger-js": "^4.1.2",
     "prismjs": "^1.29.0",
     "wkhtmltopdf": "^0.4.0"
   },
